@@ -4,9 +4,11 @@ services:
     build: ./docker/front
     volumes:
       - ./front:/var/www/html/
-    working_dir: /var/www/html/pomodoro
+    working_dir: /var/www/html
     ports:
       - 3000:3000
+    tty: true
+    stdin_open: true
     environment:
       - HOST=0.0.0.0
   db:
