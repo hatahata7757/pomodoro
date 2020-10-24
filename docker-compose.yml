@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: [password]
+      MYSQL_PASSWORD: [password]
+      MYSQL_DATABASE: [database]
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - '3306:3306'
+  api:
+    build: ./docker/api
+    volumes:
+      - ./api:/go/src/project
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - '1234:1234'
