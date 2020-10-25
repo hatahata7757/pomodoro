@@ -29,6 +29,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     '@nuxtjs/bulma',
+    '@nuxtjs/axios',
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -41,4 +42,10 @@ export default {
       },
     },
   },
+  // hot reloading
+  watchers: {
+    webpack: {
+      poll: true,
+    },
+  }
 }
