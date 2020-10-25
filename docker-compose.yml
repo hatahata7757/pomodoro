@@ -1,6 +1,27 @@
 version: '3'
-# Gopkg.toml を編集する場合、vendor ボリュームも削除しイメージを再構築する
 services:
+  rp:
+    build: ./docker/rp
+    ports:
+      - '1234:1234'
+  db:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    depends_on:
+      - 'rp'
+  api:
+    build: ./docker/api
+    volumes:
+      - ./api:/go/src/api
+    depends_on:
+      - 'db'
   front:
     build: ./docker/front
     volumes:
@@ -12,21 +33,5 @@ services:
     stdin_open: true
     environment:
       - HOST=0.0.0.0
-  db:
-    image: mysql:5.7.22
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: mysql
-    volumes:
-      - ./mysql:/var/lib/mysql
-    ports:
-      - '3306:3306'
-  api:
-    build: ./docker/api
-    volumes:
-      - ./api:/go/src/api
-  rp:
-    build: ./docker/rp
-    ports:
-      - '1234:1234'
+    depends_on:
+      - 'api'
