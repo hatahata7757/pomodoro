@@ -1,15 +1,18 @@
 package interactor
 
-import "api/domain/model"
+import (
+	"api/domain/model"
+	"api/usecase/repository"
+)
 
 // UserInteractor は UserRepositoryを持つ型です。
 type UserInteractor struct {
-	UserRepository UserRepository
+	UserRepository repository.UserRepository
 }
 
 // Add は UserRepository を通して Store を実行するためのメソッドです。
 func (interactor *UserInteractor) Add(u model.User) (err error) {
-	_, err := interactor.UserRepository.Store(u)
+	_, err = interactor.UserRepository.Store(u)
 	return
 }
 

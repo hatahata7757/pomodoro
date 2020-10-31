@@ -7,6 +7,7 @@ type UserRepository struct {
 	SqlHandler
 }
 
+// Store は User を保存するメソッドです
 func (repo *UserRepository) Store(u model.User) (id int, err error) {
 	result, err := repo.Execute(
 		"INSERT INTO users (name) VALUES (?)", u.Name,
@@ -30,7 +31,7 @@ func (repo *UserRepository) FindById(identifier int) (user model.User, err error
 		return
 	}
 	var id int
-	var Name string
+	var name string
 	row.Next()
 	if err = row.Scan(&id, &name); err != nil {
 		return
