@@ -18,3 +18,9 @@ func (interactor *UserInteractor) Users() (user model.Users, err error) {
 	user, err = interactor.UserRepository.FindAll()
 	return
 }
+
+// UserById は UserRepository を通して FindByIdを実行するためのメソッドです。
+func (interactor *UserInteractor) UserById(identifier int) (user model.User, err error) {
+	user, err = interactor.UserRepository.FindById(identifier)
+	return
+}
