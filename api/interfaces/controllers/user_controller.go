@@ -33,3 +33,13 @@ func (controller *UserController) Create(c Context) {
 	}
 	c.JSON(201)
 }
+
+// Index :ユーザー一覧取得に関するUserControllerのメソッド
+func (controller *UserController) Index(c Context) {
+	users, err := controller.Interactor.Users()
+	if err != nil {
+		c.JSON(500, NewError(err))
+		return
+	}
+	c.JSON(200, users)
+}
