@@ -4,6 +4,7 @@ import (
 	"api/domain/model"
 	"api/interfaces/database"
 	"api/usecase/interactor"
+	"strconv"
 )
 
 // UserController は usecase.interactor.UserInteractor を内包した型です。
@@ -42,4 +43,15 @@ func (controller *UserController) Index(c Context) {
 		return
 	}
 	c.JSON(200, users)
+}
+
+// Show :ユーザー情報取得に関するUserControllerのメソッド
+func (controller *UserController) Show(c Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	user, err := controller.Interactor.UserById(id)
+	if err != nil {
+		c.JSON(500, NewError(err))
+		return
+	}
+	c.JSON(200, user)
 }
