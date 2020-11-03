@@ -15,7 +15,7 @@ type SqlHandler struct {
 
 // NewSqlHandler は、生成したSqlHandlerのインターフェースを返します。
 func NewSqlHandler() database.SqlHandler {
-	conn, err := sql.Open("mysql", "root:@tcp(db:3306)/pomodoro")
+	conn, err := sql.Open("mysql", "root:password@tcp(db:3306)/pomodoro")
 	if err != nil {
 		panic(err.Error)
 	}
