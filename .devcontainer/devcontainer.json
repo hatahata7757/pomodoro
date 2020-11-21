@@ -1,0 +1,16 @@
+{
+  "name": "go",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "api",
+  "workspaceFolder": "/go/src/api",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/ash",
+    "go.gopath": "/go"
+  },
+  "extensions": [
+    "ms-vscode.go",
+  ],
+  "shutdownAction": "stopCompose"
+}
