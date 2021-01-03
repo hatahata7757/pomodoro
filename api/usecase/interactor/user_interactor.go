@@ -11,8 +11,12 @@ type UserInteractor struct {
 }
 
 // Add は UserRepository を通して Store を実行するためのメソッドです。
-func (interactor *UserInteractor) Add(u model.User) (err error) {
-	_, err = interactor.UserRepository.Store(u)
+func (interactor *UserInteractor) Add(u model.User) (user model.User, err error) {
+	identifier, err := interactor.UserRepository.Store(u)
+	if err != nil {
+		return
+	}
+	user, err = interactor.UserRepository.FindById(identifier)
 	return
 }
 

@@ -25,7 +25,7 @@ func (repo *UserRepository) Store(u model.User) (id int, err error) {
 
 // FindById は 引数で渡された id に一致する User を取得するメソッドです
 func (repo *UserRepository) FindById(identifier int) (user model.User, err error) {
-	row, err := repo.Query("SELECT id, name, FROM users WHERE id = ?", identifier)
+	row, err := repo.Query("SELECT id, name FROM users WHERE id = ?", identifier)
 	defer row.Close()
 	if err != nil {
 		return

@@ -29,12 +29,12 @@ func NewUserController(sqlHandler database.SqlHandler) *UserController {
 func (controller *UserController) Create(c Context) {
 	u := model.User{}
 	c.Bind(&u)
-	err := controller.Interactor.Add(u)
+	user, err := controller.Interactor.Add(u)
 	if err != nil {
 		c.JSON(500, err)
 		return
 	}
-	c.JSON(201, u)
+	c.JSON(201, user)
 }
 
 // Index :ユーザー一覧取得に関するUserControllerのメソッド
