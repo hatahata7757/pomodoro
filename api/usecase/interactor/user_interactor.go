@@ -27,3 +27,9 @@ func (interactor *UserInteractor) UserById(identifier int) (user model.User, err
 	user, err = interactor.UserRepository.FindById(identifier)
 	return
 }
+
+// DeleteById はUserRepository を通して DeleteByIdを実行するためのメソッドです。
+func (interactor *UserInteractor) DeleteById(identifier int) (err error) {
+	_, err = interactor.UserRepository.DeleteById(identifier)
+	return
+}

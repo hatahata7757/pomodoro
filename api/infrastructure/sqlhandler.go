@@ -24,6 +24,7 @@ func NewSqlHandler() database.SqlHandler {
 	return sqlHandler
 }
 
+// Execute は、SqlHandler インターフェースにあるExecute の振る舞いの実装です。
 func (handler *SqlHandler) Execute(statement string, args ...interface{}) (database.Result, error) {
 	res := SqlResult{}
 	result, err := handler.Conn.Exec(statement, args...)
@@ -34,6 +35,7 @@ func (handler *SqlHandler) Execute(statement string, args ...interface{}) (datab
 	return res, nil
 }
 
+// Query は、SqlHandler インターフェースにある Query の振る舞いの実装です。
 func (handler *SqlHandler) Query(statement string, args ...interface{}) (database.Row, error) {
 	rows, err := handler.Conn.Query(statement, args...)
 	if err != nil {
@@ -48,10 +50,12 @@ type SqlResult struct {
 	Result sql.Result
 }
 
+// LastInsertId は、SqlResult インターフェースにある LastInsertId の振る舞いの実装です。
 func (r SqlResult) LastInsertId() (int64, error) {
 	return r.Result.LastInsertId()
 }
 
+// RowsAffected は、SqlResult インターフェースにある RowsAffected の振る舞いの実装です。
 func (r SqlResult) RowsAffected() (int64, error) {
 	return r.Result.RowsAffected()
 }
@@ -60,14 +64,17 @@ type SqlRow struct {
 	Rows *sql.Rows
 }
 
+// Scan は、SqlRow インターフェースにある Scan の振る舞いの実装です。
 func (r SqlRow) Scan(dest ...interface{}) error {
 	return r.Rows.Scan(dest...)
 }
 
+// Next は、SqlRow インターフェースにある Next の振る舞いの実装です。
 func (r SqlRow) Next() bool {
 	return r.Rows.Next()
 }
 
+// Close は、SqlRow インターフェースにある Close の振る舞いの実装です。
 func (r SqlRow) Close() error {
 	return r.Rows.Close()
 }

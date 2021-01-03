@@ -7,4 +7,5 @@ type UserRepository interface {
 	Store(model.User) (int, error)
 	FindById(int) (model.User, error)
 	FindAll() (model.Users, error)
+	DeleteById(int) (int, error)
 }

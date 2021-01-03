@@ -62,3 +62,18 @@ func (repo *UserRepository) FindAll() (users model.Users, err error) {
 	}
 	return
 }
+
+// DeleteById は引数で渡された id に一致する User をレコードから削除するメソッドです
+func (repo *UserRepository) DeleteById(identifier int) (rowCnt int, err error) {
+	result, err := repo.Execute("DELETE FROM users WHERE id = ?", identifier)
+	if err != nil {
+		return
+	}
+	// 影響を受けた行数を返す(返り値が必要だったため, 便宜的対応)
+	rowCnt64, err := result.RowsAffected()
+	if err != nil {
+		return
+	}
+	rowCnt = int(rowCnt64)
+	return
+}

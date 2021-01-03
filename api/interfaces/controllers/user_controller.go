@@ -5,6 +5,8 @@ import (
 	"api/interfaces/database"
 	"api/usecase/interactor"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 // UserController は usecase.interactor.UserInteractor を内包した型です。
@@ -54,4 +56,15 @@ func (controller *UserController) Show(c Context) {
 		return
 	}
 	c.JSON(200, user)
+}
+
+// Delete :ユーザー削除に関するUserControllerのメソッド
+func (controller *UserController) Delete(c Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	err := controller.Interactor.DeleteById(id)
+	if err != nil {
+		c.JSON(500, err)
+		return
+	}
+	c.JSON(204, gin.H{"message": "deleted"})
 }
